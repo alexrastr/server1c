@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  srv:
+    image: rastr/server1c
+    restart: always
+    env_file: envfile
+    #hostname: server1c
+    hostname: srv
+    ports:
+      - "1540-1541:1540-1541"
+      - "1560-1591:1560-1591"
+    volumes:
+      - srv_data:/home/usr1cv8/.1cv8z
+      - srv_log:/var/log/1C
+      - srv_sync:/home/usr1cv8/sync1c
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: rastr/postgres1c
+    shm_size: 1g
+    restart: always
+    env_file: envfile
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/data
+      - db_log:/var/log/postgres
+
+volumes:
+  srv_data: {}
+  srv_log: {}
+  srv_sync: {}
+  db_data: {}
+  db_log: {}

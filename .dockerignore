@@ -1,0 +1,4 @@
+envfile
+dist/*tar.gz
+dist/*
+*~
